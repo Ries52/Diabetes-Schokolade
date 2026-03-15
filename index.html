@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SweetFree – Shop</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#1A1208;--gold:#C9A84C;--gold-lt:#F0DFA0;--cream:#FAF5EB;--warm:#F2E8D0;--choco:#3B1F0E;--mid:#6B4C35;--gray:#9A8A7A;--shadow-s:0 2px 12px rgba(26,18,8,.08);--shadow-m:0 8px 32px rgba(26,18,8,.14);--shadow-l:0 24px 64px rgba(26,18,8,.22);}
+*{margin:0;padding:0;box-sizing:border-box;}html{scroll-behavior:smooth;}
+body{font-family:'Jost',sans-serif;background:var(--cream);color:var(--ink);overflow-x:hidden;cursor:none;}
+#cursor{width:12px;height:12px;background:var(--gold);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9999;mix-blend-mode:multiply;}
+#cursor-ring{width:36px;height:36px;border:1.5px solid var(--gold);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9998;transition:width .25s,height .25s;opacity:.6;}
+
+/* HEADER */
+header{position:fixed;top:0;left:0;right:0;z-index:200;padding:0 6%;height:80px;display:flex;align-items:center;justify-content:space-between;background:rgba(250,245,235,.96);backdrop-filter:blur(18px);border-bottom:1px solid rgba(201,168,76,.18);}
+.logo{font-family:'Cormorant Garamond',serif;font-size:1.7rem;font-weight:700;color:var(--ink);text-decoration:none;display:flex;align-items:center;gap:10px;}
+.logo-dot{width:8px;height:8px;background:var(--gold);border-radius:50%;display:inline-block;}
+nav{display:flex;gap:2.5rem;align-items:center;}
+nav a{color:var(--mid);text-decoration:none;font-size:.78rem;font-weight:500;letter-spacing:.8px;text-transform:uppercase;transition:color .2s;position:relative;}
+nav a::after{content:'';position:absolute;bottom:-4px;left:0;right:0;height:1px;background:var(--gold);transform:scaleX(0);transition:transform .2s;}
+nav a:hover{color:var(--ink);}nav a:hover::after{transform:scaleX(1);}
+nav a.active{color:var(--ink);}nav a.active::after{transform:scaleX(1);}
+.cart-trigger{display:flex;align-items:center;gap:8px;background:var(--ink);color:var(--cream);border:none;padding:11px 22px;border-radius:2px;font-family:'Jost',sans-serif;font-size:.76rem;font-weight:600;letter-spacing:1px;text-transform:uppercase;cursor:none;transition:background .2s,transform .15s;}
+.cart-trigger:hover{background:var(--choco);transform:translateY(-1px);}
+.cart-count{background:var(--gold);color:var(--ink);border-radius:50%;width:18px;height:18px;font-size:.65rem;font-weight:700;display:none;align-items:center;justify-content:center;flex-shrink:0;}
+
+/* HERO */
+.hero{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;padding-top:80px;overflow:hidden;}
+.hero-left{display:flex;flex-direction:column;justify-content:center;padding:8% 6% 8% 8%;position:relative;}
+.hero-left::before{content:'';position:absolute;bottom:0;right:-1px;width:1px;height:70%;background:linear-gradient(180deg,transparent,var(--gold),transparent);}
+.eyebrow-row{display:flex;align-items:center;gap:10px;margin-bottom:2rem;}
+.eyebrow-line{width:40px;height:1px;background:var(--gold);}
+.eyebrow-row span{font-size:.7rem;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--gold);}
+.hero h1{font-family:'Cormorant Garamond',serif;font-size:clamp(2.8rem,5vw,4.6rem);font-weight:600;line-height:1.05;margin-bottom:1.4rem;}
+.hero h1 em{font-style:italic;color:var(--gold);}
+.hero-desc{font-size:.96rem;line-height:1.82;color:var(--gray);max-width:420px;margin-bottom:2.5rem;font-weight:300;}
+.hero-badges{display:flex;gap:.8rem;flex-wrap:wrap;margin-bottom:3rem;}
+.badge{display:inline-flex;align-items:center;gap:6px;border:1px solid rgba(201,168,76,.35);padding:7px 13px;border-radius:2px;font-size:.68rem;font-weight:600;letter-spacing:.5px;text-transform:uppercase;color:var(--mid);background:rgba(201,168,76,.05);}
+.hero-cta{display:flex;gap:1rem;flex-wrap:wrap;}
+.btn-gold{background:var(--gold);color:var(--ink);border:none;padding:14px 34px;font-family:'Jost',sans-serif;font-size:.78rem;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;cursor:none;border-radius:2px;transition:background .2s,transform .15s;text-decoration:none;display:inline-block;}
+.btn-gold:hover{background:var(--gold-lt);transform:translateY(-2px);}
+.btn-ghost{background:transparent;color:var(--ink);border:1px solid rgba(26,18,8,.2);padding:13px 26px;font-family:'Jost',sans-serif;font-size:.78rem;font-weight:500;letter-spacing:1px;text-transform:uppercase;cursor:none;border-radius:2px;transition:border-color .2s;text-decoration:none;display:inline-block;}
+.btn-ghost:hover{border-color:var(--gold);}
+.hero-right{position:relative;overflow:hidden;}
+.hero-img-wrap img{width:100%;height:100%;object-fit:cover;filter:brightness(.86) saturate(1.1);}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(135deg,rgba(26,18,8,.28),transparent 60%);}
+.hero-floating-card{position:absolute;bottom:40px;left:40px;background:rgba(250,245,235,.95);backdrop-filter:blur(12px);border:1px solid rgba(201,168,76,.3);padding:20px 24px;border-radius:4px;box-shadow:var(--shadow-m);}
+.hfc-label{font-size:.63rem;letter-spacing:2px;text-transform:uppercase;color:var(--gray);margin-bottom:5px;}
+.hfc-value{font-family:'Cormorant Garamond',serif;font-size:1.45rem;font-weight:600;color:var(--ink);}
+.hfc-sub{font-size:.7rem;color:var(--gray);margin-top:3px;}
+
+/* FEATURE STRIP */
+.feature-strip{background:var(--warm);border-top:1px solid rgba(201,168,76,.2);border-bottom:1px solid rgba(201,168,76,.2);padding:20px 6%;display:flex;justify-content:center;gap:3rem;flex-wrap:wrap;}
+.fs-item{display:flex;align-items:center;gap:9px;font-size:.72rem;font-weight:600;letter-spacing:.5px;text-transform:uppercase;color:var(--mid);}
+
+/* SECTION */
+.section-wrap{padding:90px 8%;}
+.s-eyebrow{display:flex;align-items:center;gap:12px;margin-bottom:1rem;}
+.s-eyebrow span{font-size:.68rem;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--gold);}
+.s-line{height:1px;width:36px;background:var(--gold);flex-shrink:0;}
+.section-header{margin-bottom:3.5rem;}
+.section-header h2{font-family:'Cormorant Garamond',serif;font-size:clamp(2.1rem,3.8vw,3rem);font-weight:600;line-height:1.15;margin-top:.5rem;}
+.section-header h2 em{font-style:italic;color:var(--gold);}
+.section-header p{margin-top:.9rem;color:var(--gray);font-size:.92rem;line-height:1.78;max-width:520px;font-weight:300;}
+
+/* PRODUCTS */
+.products-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;}
+.product-card{background:var(--cream);border:1px solid rgba(201,168,76,.15);border-radius:4px;overflow:hidden;cursor:none;transition:transform .3s,box-shadow .3s,border-color .3s;}
+.product-card:hover{transform:translateY(-8px);box-shadow:var(--shadow-l);border-color:rgba(201,168,76,.45);}
+.pc-img{width:100%;height:270px;position:relative;overflow:hidden;}
+.pc-img img{width:100%;height:100%;object-fit:cover;transition:transform .6s;filter:brightness(.9) saturate(1.1);}
+.product-card:hover .pc-img img{transform:scale(1.07);}
+.pc-tag{position:absolute;top:16px;left:16px;background:var(--ink);color:var(--gold);font-size:.62rem;font-weight:600;letter-spacing:2px;text-transform:uppercase;padding:5px 12px;border-radius:1px;z-index:1;}
+.pc-gi{position:absolute;bottom:16px;right:16px;background:rgba(250,245,235,.93);backdrop-filter:blur(8px);border:1px solid rgba(201,168,76,.3);padding:8px 12px;text-align:center;border-radius:3px;z-index:1;}
+.pc-gi strong{display:block;font-family:'Cormorant Garamond',serif;font-size:1.35rem;font-weight:700;color:var(--ink);line-height:1;}
+.pc-gi span{font-size:.57rem;letter-spacing:1px;text-transform:uppercase;color:var(--gray);}
+.pc-body{padding:24px 24px 28px;}
+.pc-variant{font-size:.63rem;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);margin-bottom:6px;}
+.pc-body h3{font-family:'Cormorant Garamond',serif;font-size:1.55rem;font-weight:600;margin-bottom:8px;line-height:1.2;}
+.pc-desc{font-size:.84rem;color:var(--gray);line-height:1.7;margin-bottom:16px;font-weight:300;}
+.pc-pills{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:18px;}
+.pill{border:1px solid rgba(201,168,76,.3);color:var(--mid);font-size:.61rem;font-weight:600;letter-spacing:.5px;text-transform:uppercase;padding:3px 9px;border-radius:1px;background:rgba(201,168,76,.05);}
+.pc-footer{display:flex;align-items:center;justify-content:space-between;}
+.pc-price{font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:700;line-height:1;}
+.pc-price sup{font-size:.9rem;vertical-align:top;margin-top:5px;display:inline-block;}
+.pc-actions{display:flex;gap:6px;}
+.btn-detail{border:1px solid rgba(26,18,8,.2);background:transparent;color:var(--ink);padding:9px 14px;font-family:'Jost',sans-serif;font-size:.68rem;font-weight:600;letter-spacing:1px;text-transform:uppercase;cursor:none;border-radius:2px;transition:all .2s;}
+.btn-detail:hover{background:var(--warm);border-color:var(--gold);}
+.btn-add{background:var(--ink);color:var(--cream);border:none;padding:9px 17px;font-family:'Jost',sans-serif;font-size:.68rem;font-weight:600;letter-spacing:1px;text-transform:uppercase;cursor:none;border-radius:2px;transition:background .2s,transform .15s;}
+.btn-add:hover{background:var(--choco);transform:scale(1.04);}
+
+/* ── DIABETIKER SECTION ── */
+.diabetiker{background:var(--choco);padding:90px 8%;color:var(--cream);}
+.diabetiker .section-header h2{color:var(--cream);}
+.diabetiker .section-header p{color:rgba(250,245,235,.6);}
+.dia-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-bottom:3rem;}
+.dia-card{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);border-radius:4px;padding:32px 28px;transition:background .25s,transform .25s;}
+.dia-card:hover{background:rgba(255,255,255,.1);transform:translateY(-4px);}
+.dia-icon{font-size:2.2rem;margin-bottom:16px;display:block;}
+.dia-card h3{font-family:'Cormorant Garamond',serif;font-size:1.15rem;font-weight:600;color:var(--gold);margin-bottom:9px;}
+.dia-card p{font-size:.84rem;color:rgba(250,245,235,.58);line-height:1.68;font-weight:300;}
+.dia-facts{background:rgba(201,168,76,.08);border:1px solid rgba(201,168,76,.2);border-radius:4px;padding:40px 48px;display:grid;grid-template-columns:repeat(4,1fr);gap:2rem;text-align:center;}
+.dia-fact strong{display:block;font-family:'Cormorant Garamond',serif;font-size:2.6rem;font-weight:700;color:var(--gold);line-height:1;margin-bottom:6px;}
+.dia-fact span{font-size:.75rem;color:rgba(250,245,235,.5);letter-spacing:.5px;text-transform:uppercase;}
+.dia-info-strip{margin-top:3rem;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:4px;padding:28px 36px;display:flex;align-items:center;gap:20px;}
+.dia-info-strip .icon{font-size:2rem;flex-shrink:0;}
+.dia-info-strip p{font-size:.87rem;color:rgba(250,245,235,.65);line-height:1.7;font-weight:300;}
+.dia-info-strip p strong{color:var(--gold);font-weight:500;}
+
+/* MODAL */
+.modal-overlay{position:fixed;inset:0;background:rgba(26,18,8,.72);backdrop-filter:blur(8px);z-index:500;opacity:0;pointer-events:none;transition:opacity .35s;display:flex;align-items:center;justify-content:center;padding:40px 5%;}
+.modal-overlay.open{opacity:1;pointer-events:all;}
+.modal{background:var(--cream);border-radius:6px;max-width:960px;width:100%;max-height:90vh;overflow-y:auto;display:grid;grid-template-columns:1fr 1fr;box-shadow:var(--shadow-l);transform:translateY(30px) scale(.97);transition:transform .4s cubic-bezier(.23,1,.32,1);}
+.modal-overlay.open .modal{transform:translateY(0) scale(1);}
+.modal-imgs{position:relative;overflow:hidden;min-height:500px;}
+.modal-imgs img{width:100%;height:100%;object-fit:cover;filter:brightness(.86) saturate(1.1);}
+.modal-close{position:absolute;top:20px;right:20px;background:rgba(250,245,235,.92);border:none;width:40px;height:40px;border-radius:50%;font-size:1.1rem;cursor:none;display:flex;align-items:center;justify-content:center;transition:background .2s,transform .15s;z-index:10;color:var(--ink);}
+.modal-close:hover{background:#fff;transform:scale(1.1);}
+.modal-body{padding:44px 40px;display:flex;flex-direction:column;overflow-y:auto;}
+.modal-variant{font-size:.65rem;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:8px;}
+.modal-body h2{font-family:'Cormorant Garamond',serif;font-size:2.2rem;font-weight:600;line-height:1.1;margin-bottom:.6rem;}
+.modal-body h2 em{font-style:italic;}
+.modal-tagline{font-size:.92rem;color:var(--gray);line-height:1.72;margin-bottom:1.5rem;font-weight:300;}
+.modal-divider{height:1px;background:rgba(201,168,76,.18);margin:1.3rem 0;}
+.nutr-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(201,168,76,.15);border:1px solid rgba(201,168,76,.2);border-radius:3px;margin-bottom:1.4rem;overflow:hidden;}
+.nutr-cell{background:var(--cream);padding:12px 8px;text-align:center;}
+.nutr-cell strong{display:block;font-family:'Cormorant Garamond',serif;font-size:1.25rem;font-weight:700;line-height:1;}
+.nutr-cell span{font-size:.58rem;letter-spacing:.5px;text-transform:uppercase;color:var(--gray);margin-top:3px;display:block;}
+.ingr-wrap h4{font-size:.67rem;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:7px;}
+.ingr-list{font-size:.84rem;color:var(--mid);line-height:1.72;font-weight:300;}
+.usp-list{display:flex;flex-direction:column;gap:9px;margin-bottom:1.6rem;}
+.usp-item{display:flex;align-items:flex-start;gap:10px;font-size:.84rem;color:var(--mid);line-height:1.55;}
+.usp-icon{font-size:.92rem;flex-shrink:0;margin-top:1px;}
+.modal-price-row{display:flex;align-items:center;justify-content:space-between;margin-top:auto;padding-top:1.4rem;border-top:1px solid rgba(201,168,76,.18);}
+.modal-price{font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:700;}
+.modal-add{background:var(--gold);color:var(--ink);border:none;padding:13px 28px;font-family:'Jost',sans-serif;font-size:.75rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;cursor:none;border-radius:2px;transition:background .2s,transform .15s;}
+.modal-add:hover{background:var(--gold-lt);transform:translateY(-2px);}
+
+/* CART */
+.cart-overlay-bg{position:fixed;inset:0;background:rgba(26,18,8,.5);z-index:300;opacity:0;pointer-events:none;transition:opacity .3s;}
+.cart-overlay-bg.open{opacity:1;pointer-events:all;}
+.cart-sidebar{position:fixed;top:0;right:0;bottom:0;width:400px;background:var(--cream);z-index:301;transform:translateX(100%);transition:transform .38s cubic-bezier(.23,1,.32,1);display:flex;flex-direction:column;border-left:1px solid rgba(201,168,76,.2);box-shadow:var(--shadow-l);}
+.cart-sidebar.open{transform:translateX(0);}
+.cs-header{padding:26px 30px;border-bottom:1px solid rgba(201,168,76,.15);display:flex;align-items:center;justify-content:space-between;}
+.cs-header h3{font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:600;}
+.cs-close{background:none;border:none;font-size:1.2rem;cursor:none;color:var(--mid);transition:color .2s;padding:4px;}
+.cs-close:hover{color:var(--ink);}
+.cs-items{flex:1;overflow-y:auto;padding:18px 30px;}
+.cs-empty{text-align:center;padding:50px 20px;color:var(--gray);}
+.cs-empty span{font-size:2.8rem;display:block;margin-bottom:12px;opacity:.4;}
+.cs-empty p{font-size:.84rem;line-height:1.6;}
+.cs-item{display:flex;gap:13px;align-items:center;padding:14px 0;border-bottom:1px solid rgba(201,168,76,.1);animation:fadeIn .25s ease;}
+@keyframes fadeIn{from{opacity:0;transform:translateX(16px);}to{opacity:1;transform:translateX(0);}}
+.cs-item-img{width:54px;height:54px;border-radius:3px;overflow:hidden;flex-shrink:0;border:1px solid rgba(201,168,76,.2);}
+.cs-item-img img{width:100%;height:100%;object-fit:cover;}
+.cs-item-info{flex:1;}
+.cs-item-info h4{font-size:.86rem;font-weight:600;margin-bottom:2px;}
+.cs-item-info p{font-size:.74rem;color:var(--gray);}
+.cs-qty{display:flex;align-items:center;gap:7px;margin-top:6px;}
+.qty-btn{width:24px;height:24px;border-radius:50%;border:1px solid rgba(201,168,76,.3);background:transparent;font-size:.9rem;cursor:none;display:flex;align-items:center;justify-content:center;transition:background .2s;color:var(--ink);line-height:1;}
+.qty-btn:hover{background:var(--gold);border-color:var(--gold);}
+.qty-num{font-size:.83rem;font-weight:600;min-width:18px;text-align:center;}
+.cs-item-price{font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-weight:700;}
+.cs-item-del{background:none;border:none;color:var(--gray);font-size:.88rem;cursor:none;padding:4px;transition:color .2s;}
+.cs-item-del:hover{color:#c0392b;}
+.cs-footer{padding:22px 30px;border-top:1px solid rgba(201,168,76,.15);}
+.cs-total-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;}
+.cs-total-row span:first-child{font-size:.73rem;letter-spacing:1px;text-transform:uppercase;color:var(--gray);}
+.cs-total-row span:last-child{font-family:'Cormorant Garamond',serif;font-size:1.75rem;font-weight:700;}
+.cs-checkout{width:100%;background:var(--gold);color:var(--ink);border:none;padding:14px;font-family:'Jost',sans-serif;font-size:.77rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;cursor:none;border-radius:2px;transition:background .2s;}
+.cs-checkout:hover{background:var(--gold-lt);}
+
+/* FOOTER */
+footer{background:var(--ink);color:var(--cream);padding:70px 8% 36px;}
+.footer-top{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:3rem;margin-bottom:3rem;}
+.f-brand p{margin-top:12px;font-size:.8rem;color:rgba(250,245,235,.45);line-height:1.72;font-weight:300;}
+.f-col h4{font-size:.65rem;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:rgba(250,245,235,.3);margin-bottom:1.2rem;}
+.f-col ul{list-style:none;display:flex;flex-direction:column;gap:10px;}
+.f-col ul li a{color:rgba(250,245,235,.55);text-decoration:none;font-size:.82rem;font-weight:300;transition:color .2s;}
+.f-col ul li a:hover{color:var(--gold);}
+.footer-bottom{border-top:1px solid rgba(250,245,235,.07);padding-top:24px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem;font-size:.72rem;color:rgba(250,245,235,.28);}
+.footer-bottom a{color:rgba(250,245,235,.38);text-decoration:none;}
+.toast{position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--ink);color:var(--cream);padding:13px 24px;border-radius:3px;font-size:.8rem;font-weight:500;z-index:600;opacity:0;transition:all .35s cubic-bezier(.23,1,.32,1);white-space:nowrap;border-bottom:2px solid var(--gold);}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+
+@media(max-width:1024px){.hero{grid-template-columns:1fr;}.hero-right{height:400px;}.products-grid{grid-template-columns:1fr 1fr;}.dia-grid{grid-template-columns:1fr 1fr;}.dia-facts{grid-template-columns:repeat(2,1fr);}.modal{grid-template-columns:1fr;}.modal-imgs{min-height:280px;max-height:340px;}}
+@media(max-width:700px){nav a:not(:last-child){display:none;}.products-grid{grid-template-columns:1fr;}.dia-grid{grid-template-columns:1fr;}.dia-facts{grid-template-columns:1fr 1fr;}.footer-top{grid-template-columns:1fr 1fr;}.cart-sidebar{width:100%;}.nutr-grid{grid-template-columns:repeat(2,1fr);}}
+</style>
+</head>
+<body>
+<div id="cursor"></div><div id="cursor-ring"></div>
+
+<header>
+  <a href="index.html" class="logo"><span class="logo-dot"></span>SweetFree</a>
+  <nav>
+    <a href="index.html" class="active">Shop</a>
+    <a href="ueber-uns.html">Über uns</a>
+    <a href="blog.html">Blog</a>
+    <a href="kontakt.html">Kontakt</a>
+  </nav>
+  <button class="cart-trigger" onclick="toggleCart()">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+    Warenkorb
+    <span class="cart-count" id="cartCount">0</span>
+  </button>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="eyebrow-row"><span class="eyebrow-line"></span><span>Premium · Zuckerfrei · Diabetikerfreundlich</span></div>
+    <h1>Schokolade,<br>die <em>heilt —</em><br>nicht schadet.</h1>
+    <p class="hero-desc">Handverlesene Zutaten. Kein Zucker. Kein Kompromiss. Unsere Premium-Schokolade wurde speziell für Menschen mit Diabetes entwickelt — damit Genuss wieder unbeschwert sein kann.</p>
+    <div class="hero-badges">
+      <div class="badge">🛡 GI &lt; 5</div>
+      <div class="badge">🌍 Fair Harvested</div>
+      <div class="badge">🍬 0 g Zucker</div>
+      <div class="badge">♻️ Nachhaltig</div>
+    </div>
+    <div class="hero-cta">
+      <a href="#produkte" class="btn-gold">Jetzt entdecken</a>
+      <a href="ueber-uns.html" class="btn-ghost">Unsere Geschichte</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-img-wrap" style="width:100%;height:100%;position:relative;">
+      <img src="https://images.unsplash.com/photo-1606312619070-d48b4c652a52?w=1000&auto=format&fit=crop&q=80" alt="SweetFree Premium Schokolade" style="width:100%;height:100%;object-fit:cover;filter:brightness(.86) saturate(1.1);">
+      <div class="hero-overlay"></div>
+    </div>
+    <div class="hero-floating-card">
+      <div class="hfc-label">Kakaomasse</div>
+      <div class="hfc-value">85% reiner Kakao</div>
+      <div class="hfc-sub">Nachhaltiger Anbau · Ecuador</div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURE STRIP -->
+<div class="feature-strip">
+  <div class="fs-item">🌿 Natürliche Süßungsmittel</div>
+  <div class="fs-item">🩺 Diabetologen-geprüft</div>
+  <div class="fs-item">🌍 Fair Harvested</div>
+  <div class="fs-item">📦 Versand 1–2 Tage</div>
+  <div class="fs-item">🏔️ Made in Salzburg</div>
+</div>
+
+<!-- PRODUCTS -->
+<section class="section-wrap" id="produkte">
+  <div class="section-header">
+    <div class="s-eyebrow"><span class="s-line"></span><span>Unsere Kollektion</span></div>
+    <h2>Drei Varianten.<br><em>Ein Versprechen.</em></h2>
+    <p>Jede Tafel ist ein Meisterwerk aus fairem Kakao und natürlichen Süßungsmitteln. Klick auf „Details" für alle Informationen zu Zutaten, Nährwerten und Herkunft.</p>
+  </div>
+  <div class="products-grid" id="productsGrid"></div>
+</section>
+
+<!-- FÜR DIABETIKER -->
+<section class="diabetiker" id="diabetiker">
+  <div class="section-header">
+    <div class="s-eyebrow"><span class="s-line" style="background:rgba(201,168,76,.5)"></span><span>Für Diabetiker</span></div>
+    <h2>Warum SweetFree<br><em>sicher ist.</em></h2>
+    <p>Menschen mit Diabetes Typ 1 und Typ 2 müssen ihren Blutzucker sorgfältig steuern. Wir haben jedes Detail unserer Schokolade darauf ausgerichtet.</p>
+  </div>
+  <div class="dia-grid">
+    <div class="dia-card">
+      <span class="dia-icon">🍬</span>
+      <h3>Kein Zucker — wirklich keiner</h3>
+      <p>Kein Haushaltszucker, kein Glukosesirup, kein Maltose, keine Dextrose. Gesüßt wird ausschließlich mit Erythrit, Stevia und Inulin — alles Süßungsmittel, die den Blutzucker nicht messbar erhöhen.</p>
+    </div>
+    <div class="dia-card">
+      <span class="dia-icon">📉</span>
+      <h3>Minimale Kohlenhydrate</h3>
+      <p>Nur 2–4 g netto Kohlenhydrate pro 100 g. Das ist bis zu 20× weniger als in normaler Schokolade. Ideal für Low-Carb-Ernährung, die bei Diabetes Typ 2 besonders empfohlen wird.</p>
+    </div>
+    <div class="dia-card">
+      <span class="dia-icon">📊</span>
+      <h3>Glykämischer Index &lt; 5</h3>
+      <p>Der glykämische Index (GI) misst, wie stark ein Lebensmittel den Blutzucker anhebt. Normale Schokolade hat GI 40–70. Unsere liegt bei maximal 5 — klinisch gemessen und belegt.</p>
+    </div>
+    <div class="dia-card">
+      <span class="dia-icon">🌿</span>
+      <h3>Erythrit & Stevia</h3>
+      <p>Erythrit ist ein natürliches Zuckeralkohol mit 0 Kalorien und 0 Blutzuckerwirkung. Stevia ist ein pflanzlicher Süßstoff ohne Kalorien. Beide sind von Diabetologen empfohlen.</p>
+    </div>
+    <div class="dia-card">
+      <span class="dia-icon">🫘</span>
+      <h3>Inulin — gut für den Darm</h3>
+      <p>Inulin ist ein natürlicher Ballaststoff aus der Zichorienwurzel. Er wird vom Körper nicht als Zucker verarbeitet und unterstützt zusätzlich die Darmgesundheit.</p>
+    </div>
+    <div class="dia-card">
+      <span class="dia-icon">🩺</span>
+      <h3>Diabetologen-geprüft</h3>
+      <p>Jede Rezeptur wurde gemeinsam mit Ernährungsmedizinern und Diabetologen entwickelt. Empfohlen für Diabetes Typ 1, Typ 2 und Gestationsdiabetes.</p>
+    </div>
+  </div>
+  <div class="dia-facts">
+    <div class="dia-fact"><strong>0 g</strong><span>Zucker pro Tafel</span></div>
+    <div class="dia-fact"><strong>&lt; 5</strong><span>Glykämischer Index</span></div>
+    <div class="dia-fact"><strong>3 g</strong><span>Ø Netto-KH / 100g</span></div>
+    <div class="dia-fact"><strong>100%</strong><span>Natürliche Süßungsmittel</span></div>
+  </div>
+  <div class="dia-info-strip">
+    <span class="icon">ℹ️</span>
+    <p>Bitte beachte: Obwohl unsere Schokolade für Diabetiker entwickelt wurde und den Blutzucker kaum beeinflusst, empfehlen wir, beim Einstieg die individuelle Verträglichkeit zu prüfen. Sprich bei Unsicherheiten mit deiner Ärztin oder deinem Arzt. <strong>SweetFree ist kein Arzneimittel, sondern ein Premium-Lebensmittel.</strong></p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div class="f-brand">
+      <a href="index.html" class="logo" style="font-family:'Cormorant Garamond',serif;font-size:1.45rem;font-weight:700;color:var(--cream);text-decoration:none;display:flex;align-items:center;gap:10px;"><span class="logo-dot"></span>SweetFree</a>
+      <p>Premium Diabetiker-Schokolade — handgefertigt in Salzburg, aus fairem Kakao. Ein Familienunternehmen.</p>
+    </div>
+    <div class="f-col"><h4>Shop</h4><ul><li><a href="#">SweetFree Natur</a></li><li><a href="#">SweetFree Nuss</a></li><li><a href="#">SweetFree Beeren</a></li></ul></div>
+    <div class="f-col"><h4>Info</h4><ul><li><a href="ueber-uns.html">Über uns</a></li><li><a href="blog.html">Blog</a></li><li><a href="kontakt.html">Kontakt</a></li></ul></div>
+    <div class="f-col"><h4>Service</h4><ul><li><a href="#">Versand & Rückgabe</a></li><li><a href="#">FAQ</a></li><li><a href="#">Datenschutz</a></li><li><a href="#">Impressum</a></li></ul></div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 SweetFree GmbH · Salzburg, Österreich</span>
+    <span><a href="#">AGB</a> · <a href="#">Datenschutz</a> · <a href="#">Impressum</a></span>
+  </div>
+</footer>
+
+<!-- CART -->
+<div class="cart-overlay-bg" id="cartBg" onclick="toggleCart()"></div>
+<div class="cart-sidebar" id="cartSidebar">
+  <div class="cs-header"><h3>Warenkorb</h3><button class="cs-close" onclick="toggleCart()">✕</button></div>
+  <div class="cs-items" id="csItems"><div class="cs-empty"><span>🍫</span><p>Dein Warenkorb ist leer.<br>Entdecke unsere Schokoladen.</p></div></div>
+  <div class="cs-footer" id="csFooter" style="display:none">
+    <div class="cs-total-row"><span>Gesamtsumme</span><span id="csTotal">€0,00</span></div>
+    <button class="cs-checkout" onclick="checkout()">Zur Kasse →</button>
+  </div>
+</div>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modalOverlay" onclick="closeModalOutside(event)">
+  <div class="modal" id="modal">
+    <div class="modal-imgs"><img id="modalImg" src="" alt=""><button class="modal-close" onclick="closeModal()">✕</button></div>
+    <div class="modal-body" id="modalBody"></div>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+const cur=document.getElementById('cursor'),ring=document.getElementById('cursor-ring');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.transform=`translate(${mx-6}px,${my-6}px)`;});
+(function a(){rx+=(mx-rx-18)*.12;ry+=(my-ry-18)*.12;ring.style.transform=`translate(${rx}px,${ry}px)`;requestAnimationFrame(a);})();
+
+const products=[
+  {id:1,variant:'Variante 01',name:'SweetFree Natur',tagline:'Pur. Intensiv. Unvergesslich.',desc:'Unsere reinste Form — nichts als edler Kakao und natürliche Süße. Für Liebhaber des puren Geschmacks.',img:'https://images.unsplash.com/photo-1548907040-4baa42d10919?w=900&auto=format&fit=crop&q=80',price:6.90,tag:'Bestseller',gi:'2',carbs:'2,1 g',fat:'18 g',protein:'4 g',kcal:'218',pills:['0 g Zucker','GI: 2','Vegan','Glutenfrei'],ingredients:'Kakaomasse, Kakaobutter, Erythrit, Stevia, Inulin, Vanille, Mandelmilch.'},
+  {id:2,variant:'Variante 02',name:'SweetFree Nuss',tagline:'Knackig. Nussig. Verführerisch.',desc:'Ganze Haselnüsse und Mandeln treffen auf unseren Premium-Kakao. Ein Erlebnis für jeden Biss.',img:'https://images.unsplash.com/photo-1581400762498-6b19abb3b027?w=900&auto=format&fit=crop&q=80',price:7.50,tag:'Beliebt',gi:'3',carbs:'3,4 g',fat:'21 g',protein:'5 g',kcal:'241',pills:['0 g Zucker','GI: 3','Haselnuss','Glutenfrei'],ingredients:'Kakaomasse, Kakaobutter, Erythrit, Stevia, Inulin, Vanille, Mandelmilch, Haselnüsse (12%), Mandelstücke (8%).'},
+  {id:3,variant:'Variante 03',name:'SweetFree Beeren',tagline:'Fruchtig. Frisch. Besonders.',desc:'Gefriergetrocknete Himbeeren und Heidelbeeren verleihen dieser Tafel eine einzigartige Fruchttiefe.',img:'https://images.unsplash.com/photo-1606313564200-e75d5e30476c?w=900&auto=format&fit=crop&q=80',price:7.90,tag:'Neu',gi:'3',carbs:'3,8 g',fat:'17 g',protein:'3,5 g',kcal:'207',pills:['0 g Zucker','GI: 3','Antioxidantien','Vegan'],ingredients:'Kakaomasse, Kakaobutter, Erythrit, Stevia, Inulin, Vanille, Mandelmilch, gefriergetr. Himbeeren (5%), Heidelbeeren (4%).'}
+];
+let cart=[];
+
+function renderProducts(){
+  document.getElementById('productsGrid').innerHTML=products.map(p=>`
+    <div class="product-card">
+      <div class="pc-img"><div class="pc-tag">${p.tag}</div><img src="${p.img}" alt="${p.name}" loading="lazy"><div class="pc-gi"><strong>${p.gi}</strong><span>GI-Wert</span></div></div>
+      <div class="pc-body">
+        <div class="pc-variant">${p.variant}</div>
+        <h3>${p.name}</h3>
+        <p class="pc-desc">${p.desc}</p>
+        <div class="pc-pills">${p.pills.map(pl=>`<span class="pill">${pl}</span>`).join('')}</div>
+        <div class="pc-footer">
+          <div class="pc-price"><sup>€</sup>${p.price.toFixed(2).replace('.',',')}</div>
+          <div class="pc-actions">
+            <button class="btn-detail" onclick="openModal(${p.id})">Details</button>
+            <button class="btn-add" onclick="addToCart(${p.id})">+ Warenkorb</button>
+          </div>
+        </div>
+      </div>
+    </div>`).join('');
+}
+
+function openModal(id){
+  const p=products.find(x=>x.id===id);
+  document.getElementById('modalImg').src=p.img;
+  const pts=p.name.split(' ');
+  document.getElementById('modalBody').innerHTML=`
+    <div class="modal-variant">${p.variant}</div>
+    <h2>${pts[0]} <em>${pts.slice(1).join(' ')}</em></h2>
+    <p class="modal-tagline">${p.tagline} — ${p.desc}</p>
+    <div class="modal-divider"></div>
+    <div class="nutr-grid">
+      <div class="nutr-cell"><strong>${p.kcal}</strong><span>kcal / 100g</span></div>
+      <div class="nutr-cell"><strong>${p.carbs}</strong><span>Kohlenhydrate</span></div>
+      <div class="nutr-cell"><strong>${p.fat}</strong><span>Fett</span></div>
+      <div class="nutr-cell"><strong>${p.protein}</strong><span>Eiweiß</span></div>
+    </div>
+    <div class="ingr-wrap" style="margin-bottom:1.3rem"><h4>Zutaten</h4><p class="ingr-list">${p.ingredients}</p></div>
+    <div class="modal-divider"></div>
+    <ul class="usp-list">
+      <li class="usp-item"><span class="usp-icon">🍬</span><span><strong>0 g Zucker</strong> — gesüßt mit Erythrit, Stevia & Inulin. Kein Glukosesirup, kein Maltose.</span></li>
+      <li class="usp-item"><span class="usp-icon">📉</span><span><strong>Wenig Kohlenhydrate</strong> — nur ${p.carbs} netto KH pro 100 g. Ideal für Diabetiker & Low-Carb.</span></li>
+      <li class="usp-item"><span class="usp-icon">🌍</span><span><strong>Fair Harvested</strong> — Kakao von zertifizierten Partnern in Ecuador. Transparent & rückverfolgbar.</span></li>
+      <li class="usp-item"><span class="usp-icon">♻️</span><span><strong>Nachhaltig bewirtschaftet</strong> — klimapositive Methoden, keine Pestizide, Schutz der Biodiversität.</span></li>
+      <li class="usp-item"><span class="usp-icon">🩺</span><span><strong>Diabetologen-geprüft</strong> — Glykämischer Index: ${p.gi}. Keine messbaren Blutzuckerspitzen.</span></li>
+      <li class="usp-item"><span class="usp-icon">🏔️</span><span><strong>Handgefertigt in Salzburg</strong> — in kleinen Chargen, von unserer Familie für deine.</span></li>
+    </ul>
+    <div class="modal-price-row">
+      <div class="modal-price">€${p.price.toFixed(2).replace('.',',')}</div>
+      <button class="modal-add" onclick="addToCart(${p.id});closeModal()">+ In den Warenkorb</button>
+    </div>`;
+  document.getElementById('modalOverlay').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeModal(){document.getElementById('modalOverlay').classList.remove('open');document.body.style.overflow='';}
+function closeModalOutside(e){if(e.target===document.getElementById('modalOverlay'))closeModal();}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal();});
+
+function addToCart(id){
+  const p=products.find(x=>x.id===id);
+  const ex=cart.find(c=>c.id===id);
+  if(ex)ex.qty++;else cart.push({...p,qty:1});
+  updateCart();showToast(`✓  ${p.name} hinzugefügt`);
+}
+function removeFromCart(id){cart=cart.filter(c=>c.id!==id);updateCart();}
+function changeQty(id,d){const item=cart.find(c=>c.id===id);if(!item)return;item.qty+=d;if(item.qty<=0)cart=cart.filter(c=>c.id!==id);updateCart();}
+function updateCart(){
+  const count=cart.reduce((s,c)=>s+c.qty,0),total=cart.reduce((s,c)=>s+c.price*c.qty,0);
+  const cc=document.getElementById('cartCount');cc.style.display=count>0?'flex':'none';cc.textContent=count;
+  const itemsEl=document.getElementById('csItems'),footerEl=document.getElementById('csFooter');
+  document.getElementById('csTotal').textContent=`€${total.toFixed(2).replace('.',',')}`;
+  if(cart.length===0){footerEl.style.display='none';itemsEl.innerHTML=`<div class="cs-empty"><span>🍫</span><p>Dein Warenkorb ist leer.<br>Entdecke unsere Schokoladen.</p></div>`;}
+  else{footerEl.style.display='block';itemsEl.innerHTML=cart.map(c=>`
+    <div class="cs-item">
+      <div class="cs-item-img"><img src="${c.img}" alt="${c.name}"></div>
+      <div class="cs-item-info"><h4>${c.name}</h4><p>€${c.price.toFixed(2).replace('.',',')} / Tafel</p>
+        <div class="cs-qty"><button class="qty-btn" onclick="changeQty(${c.id},-1)">−</button><span class="qty-num">${c.qty}</span><button class="qty-btn" onclick="changeQty(${c.id},+1)">+</button></div></div>
+      <span class="cs-item-price">€${(c.price*c.qty).toFixed(2).replace('.',',')}</span>
+      <button class="cs-item-del" onclick="removeFromCart(${c.id})">🗑</button>
+    </div>`).join('');}
+}
+function toggleCart(){document.getElementById('cartBg').classList.toggle('open');document.getElementById('cartSidebar').classList.toggle('open');}
+function checkout(){showToast('✓  Bestellung wird verarbeitet …');toggleCart();setTimeout(()=>{cart=[];updateCart();showToast('🎉  Vielen Dank!');},1600);}
+function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove('show'),2800);}
+renderProducts();updateCart();
+</script>
+</body>
+</html>

@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SweetFree – Blog</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#1A1208;--gold:#C9A84C;--gold-lt:#F0DFA0;--cream:#FAF5EB;--warm:#F2E8D0;--choco:#3B1F0E;--mid:#6B4C35;--gray:#9A8A7A;--shadow-s:0 2px 12px rgba(26,18,8,.08);--shadow-m:0 8px 32px rgba(26,18,8,.14);--shadow-l:0 24px 64px rgba(26,18,8,.22);}
+*{margin:0;padding:0;box-sizing:border-box;}html{scroll-behavior:smooth;}
+body{font-family:'Jost',sans-serif;background:var(--cream);color:var(--ink);overflow-x:hidden;cursor:none;}
+#cursor{width:12px;height:12px;background:var(--gold);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9999;mix-blend-mode:multiply;}
+#cursor-ring{width:36px;height:36px;border:1.5px solid var(--gold);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9998;transition:width .25s,height .25s;opacity:.6;}
+header{position:fixed;top:0;left:0;right:0;z-index:200;padding:0 6%;height:80px;display:flex;align-items:center;justify-content:space-between;background:rgba(250,245,235,.96);backdrop-filter:blur(18px);border-bottom:1px solid rgba(201,168,76,.18);}
+.logo{font-family:'Cormorant Garamond',serif;font-size:1.7rem;font-weight:700;color:var(--ink);text-decoration:none;display:flex;align-items:center;gap:10px;}
+.logo-dot{width:8px;height:8px;background:var(--gold);border-radius:50%;display:inline-block;}
+nav{display:flex;gap:2.5rem;align-items:center;}
+nav a{color:var(--mid);text-decoration:none;font-size:.78rem;font-weight:500;letter-spacing:.8px;text-transform:uppercase;transition:color .2s;position:relative;}
+nav a::after{content:'';position:absolute;bottom:-4px;left:0;right:0;height:1px;background:var(--gold);transform:scaleX(0);transition:transform .2s;}
+nav a:hover{color:var(--ink);}nav a:hover::after{transform:scaleX(1);}
+nav a.active{color:var(--ink);}nav a.active::after{transform:scaleX(1);}
+.nav-shop{background:var(--gold);color:var(--ink) !important;padding:9px 20px;border-radius:2px;font-weight:600 !important;}
+.nav-shop::after{display:none !important;}.nav-shop:hover{background:var(--gold-lt);}
+.s-eyebrow{display:flex;align-items:center;gap:12px;margin-bottom:1rem;}
+.s-eyebrow span{font-size:.68rem;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--gold);}
+.s-line{height:1px;width:36px;background:var(--gold);flex-shrink:0;}
+.btn-gold{background:var(--gold);color:var(--ink);border:none;padding:12px 28px;font-family:'Jost',sans-serif;font-size:.76rem;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;cursor:none;border-radius:2px;transition:background .2s,transform .15s;text-decoration:none;display:inline-block;}
+.btn-gold:hover{background:var(--gold-lt);transform:translateY(-1px);}
+
+/* PAGE HERO */
+.page-hero{padding:160px 8% 90px;background:var(--choco);color:var(--cream);position:relative;overflow:hidden;}
+.page-hero::before{content:'';position:absolute;width:600px;height:600px;background:radial-gradient(circle,rgba(201,168,76,.1) 0%,transparent 65%);top:-150px;right:-100px;border-radius:50%;pointer-events:none;}
+.page-hero .s-eyebrow{margin-bottom:1.2rem;}
+.page-hero h1{font-family:'Cormorant Garamond',serif;font-size:clamp(2.8rem,5vw,4.2rem);font-weight:600;line-height:1.05;margin-bottom:1.2rem;}
+.page-hero h1 em{font-style:italic;color:var(--gold);}
+.page-hero p{font-size:.96rem;line-height:1.78;color:rgba(250,245,235,.65);max-width:520px;font-weight:300;}
+
+/* FEATURED POST */
+.featured{padding:70px 8%;display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;}
+.featured-img{border-radius:4px;overflow:hidden;box-shadow:var(--shadow-l);}
+.featured-img img{width:100%;height:420px;object-fit:cover;filter:brightness(.88) saturate(1.1);transition:transform .5s;}
+.featured-img:hover img{transform:scale(1.03);}
+.featured-body .s-eyebrow{margin-bottom:1.2rem;}
+.featured-tag{display:inline-block;background:var(--gold);color:var(--ink);font-size:.65rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:5px 12px;border-radius:1px;margin-bottom:1rem;}
+.featured-body h2{font-family:'Cormorant Garamond',serif;font-size:clamp(1.8rem,3vw,2.6rem);font-weight:600;line-height:1.12;margin-bottom:1rem;}
+.featured-body h2 em{font-style:italic;color:var(--gold);}
+.featured-body p{color:var(--gray);font-size:.92rem;line-height:1.78;margin-bottom:1.5rem;font-weight:300;}
+.featured-meta{font-size:.72rem;color:var(--gray);letter-spacing:.5px;text-transform:uppercase;margin-bottom:1.5rem;}
+
+/* BLOG GRID */
+.blog-section{padding:0 8% 90px;}
+.blog-section-head{margin-bottom:2.5rem;}
+.blog-section-head h2{font-family:'Cormorant Garamond',serif;font-size:1.9rem;font-weight:600;}
+.blog-section-head h2 em{font-style:italic;color:var(--gold);}
+.blog-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.8rem;}
+.blog-card{background:var(--warm);border:1px solid rgba(201,168,76,.1);border-radius:4px;overflow:hidden;cursor:none;transition:transform .3s,box-shadow .3s;}
+.blog-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-l);}
+.blog-card-img{height:200px;overflow:hidden;}
+.blog-card-img img{width:100%;height:100%;object-fit:cover;filter:brightness(.88) saturate(1.05);transition:transform .5s;}
+.blog-card:hover .blog-card-img img{transform:scale(1.06);}
+.blog-card-body{padding:24px 24px 28px;}
+.blog-cat{font-size:.62rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);margin-bottom:8px;}
+.blog-card-body h3{font-family:'Cormorant Garamond',serif;font-size:1.25rem;font-weight:600;line-height:1.25;margin-bottom:8px;}
+.blog-card-body p{font-size:.83rem;color:var(--gray);line-height:1.65;margin-bottom:14px;font-weight:300;}
+.blog-card-meta{font-size:.7rem;color:var(--gray);text-transform:uppercase;letter-spacing:.5px;}
+
+/* NEWSLETTER */
+.newsletter{background:var(--choco);padding:80px 8%;text-align:center;color:var(--cream);}
+.newsletter h2{font-family:'Cormorant Garamond',serif;font-size:clamp(1.9rem,3vw,2.6rem);font-weight:600;margin-bottom:.8rem;}
+.newsletter h2 em{font-style:italic;color:var(--gold);}
+.newsletter p{color:rgba(250,245,235,.6);font-size:.92rem;margin-bottom:2rem;max-width:440px;margin-left:auto;margin-right:auto;font-weight:300;line-height:1.7;}
+.nl-form{display:flex;max-width:460px;margin:0 auto;border:1px solid rgba(201,168,76,.3);border-radius:2px;overflow:hidden;}
+.nl-form input{flex:1;padding:14px 20px;border:none;outline:none;font-family:'Jost',sans-serif;font-size:.9rem;background:rgba(255,255,255,.06);color:var(--cream);}
+.nl-form input::placeholder{color:rgba(250,245,235,.35);}
+.nl-form button{background:var(--gold);color:var(--ink);border:none;padding:14px 24px;font-family:'Jost',sans-serif;font-size:.76rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;cursor:none;transition:background .2s;}
+.nl-form button:hover{background:var(--gold-lt);}
+
+/* FOOTER */
+footer{background:var(--ink);color:var(--cream);padding:70px 8% 36px;}
+.footer-top{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:3rem;margin-bottom:3rem;}
+.f-brand p{margin-top:12px;font-size:.8rem;color:rgba(250,245,235,.45);line-height:1.72;font-weight:300;}
+.f-col h4{font-size:.65rem;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:rgba(250,245,235,.3);margin-bottom:1.2rem;}
+.f-col ul{list-style:none;display:flex;flex-direction:column;gap:10px;}
+.f-col ul li a{color:rgba(250,245,235,.55);text-decoration:none;font-size:.82rem;font-weight:300;transition:color .2s;}
+.f-col ul li a:hover{color:var(--gold);}
+.footer-bottom{border-top:1px solid rgba(250,245,235,.07);padding-top:24px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem;font-size:.72rem;color:rgba(250,245,235,.28);}
+.footer-bottom a{color:rgba(250,245,235,.38);text-decoration:none;}
+.toast{position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--ink);color:var(--cream);padding:13px 24px;border-radius:3px;font-size:.8rem;font-weight:500;z-index:600;opacity:0;transition:all .35s cubic-bezier(.23,1,.32,1);white-space:nowrap;border-bottom:2px solid var(--gold);}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+
+@media(max-width:1024px){.featured{grid-template-columns:1fr;gap:2.5rem;}.featured-img img{height:320px;}.blog-grid{grid-template-columns:1fr 1fr;}.footer-top{grid-template-columns:1fr 1fr;gap:2rem;}}
+@media(max-width:700px){nav a:not(.nav-shop){display:none;}.blog-grid{grid-template-columns:1fr;}.footer-top{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<div id="cursor"></div><div id="cursor-ring"></div>
+
+<header>
+  <a href="index.html" class="logo"><span class="logo-dot"></span>SweetFree</a>
+  <nav>
+    <a href="index.html">Shop</a>
+    <a href="ueber-uns.html">Über uns</a>
+    <a href="blog.html" class="active">Blog</a>
+    <a href="kontakt.html">Kontakt</a>
+    <a href="index.html" class="nav-shop">🛒 Shop</a>
+  </nav>
+</header>
+
+<!-- PAGE HERO -->
+<section class="page-hero">
+  <div class="s-eyebrow"><span class="s-line"></span><span>Wissen · Rezepte · Tipps</span></div>
+  <h1>Unser <em>Blog —</em><br>für informierte Genießer.</h1>
+  <p>Alles über Diabetes, zuckerfreie Ernährung, Rezepte mit unserer Schokolade und Neuigkeiten aus der SweetFree-Familie.</p>
+</section>
+
+<!-- FEATURED -->
+<section class="featured">
+  <div class="featured-img">
+    <img src="https://images.unsplash.com/photo-1511381939415-e44015466834?w=900&auto=format&fit=crop&q=80" alt="Kakao Ernte Ecuador">
+  </div>
+  <div class="featured-body">
+    <div class="s-eyebrow"><span class="s-line"></span><span>Artikel der Woche</span></div>
+    <div class="featured-tag">Nachhaltigkeit</div>
+    <h2>Wie unser Kakao in <em>Ecuador</em> angebaut wird</h2>
+    <p class="featured-meta">von Lisa Berger-Huber · 12. März 2025 · 7 Min. Lesezeit</p>
+    <p>Wir haben unsere Partnerfarmen in Ecuador besucht und genau hingeschaut: Wie werden die Kakaobohnen geerntet? Welche Standards gelten? Was bedeutet „Fair Harvested" wirklich — und warum schmeckt man den Unterschied?</p>
+    <a href="#" class="btn-gold">Artikel lesen →</a>
+  </div>
+</section>
+
+<!-- BLOG GRID -->
+<section class="blog-section">
+  <div class="blog-section-head">
+    <div class="s-eyebrow"><span class="s-line"></span><span>Alle Artikel</span></div>
+    <h2>Lesen, lernen, <em>genießen.</em></h2>
+  </div>
+  <div class="blog-grid">
+    <div class="blog-card">
+      <div class="blog-card-img"><img src="https://images.unsplash.com/photo-1559181567-c3190ca9d149?w=600&auto=format&fit=crop&q=80" alt="Blutzucker messen"></div>
+      <div class="blog-card-body">
+        <div class="blog-cat">Diabetes</div>
+        <h3>Erythrit & Stevia: Was steckt wirklich dahinter?</h3>
+        <p>Wie wirken natürliche Süßungsmittel auf den Blutzucker? Unsere Ernährungswissenschaftlerin Lisa erklärt die Fakten.</p>
+        <div class="blog-card-meta">Lisa Berger-Huber · 3. März 2025</div>
+      </div>
+    </div>
+    <div class="blog-card">
+      <div class="blog-card-img"><img src="https://images.unsplash.com/photo-1606312619070-d48b4c652a52?w=600&auto=format&fit=crop&q=80" alt="Schokolade"></div>
+      <div class="blog-card-body">
+        <div class="blog-cat">Rezept</div>
+        <h3>Zuckerfreier Schokoladenkuchen mit SweetFree Natur</h3>
+        <p>Mama Renates bestes Rezept: ein saftiger Schokoladenkuchen, der den Blutzucker nicht beeinflusst — aber jeden Gaumen verwöhnt.</p>
+        <div class="blog-card-meta">Renate Berger · 18. Feb. 2025</div>
+      </div>
+    </div>
+    <div class="blog-card">
+      <div class="blog-card-img"><img src="https://images.unsplash.com/photo-1548907040-4baa42d10919?w=600&auto=format&fit=crop&q=80" alt="Schokolade Detail"></div>
+      <div class="blog-card-body">
+        <div class="blog-cat">Ernährung</div>
+        <h3>Low-Carb bei Diabetes Typ 2: Was die Forschung sagt</h3>
+        <p>Warum kohlenhydratarme Ernährung bei Typ-2-Diabetes so wirksam ist — und wie unsere Schokolade ideal dazu passt.</p>
+        <div class="blog-card-meta">Lisa Berger-Huber · 5. Feb. 2025</div>
+      </div>
+    </div>
+    <div class="blog-card">
+      <div class="blog-card-img"><img src="https://images.unsplash.com/photo-1581400762498-6b19abb3b027?w=600&auto=format&fit=crop&q=80" alt="Nuss Schokolade"></div>
+      <div class="blog-card-body">
+        <div class="blog-cat">Rezept</div>
+        <h3>Nuss-Schokoladen-Mousse: elegant & zuckerfrei</h3>
+        <p>Ein cremiges Dessert mit SweetFree Nuss — fertig in 20 Minuten und perfekt für Diabetiker und alle, die genießen wollen.</p>
+        <div class="blog-card-meta">Renate Berger · 22. Jan. 2025</div>
+      </div>
+    </div>
+    <div class="blog-card">
+      <div class="blog-card-img"><img src="https://images.unsplash.com/photo-1606313564200-e75d5e30476c?w=600&auto=format&fit=crop&q=80" alt="Beeren Schokolade"></div>
+      <div class="blog-card-body">
+        <div class="blog-cat">Gesundheit</div>
+        <h3>Antioxidantien in Kakao: Die unterschätzten Helden</h3>
+        <p>Dunkler Kakao ist reich an Flavonoiden — natürlichen Antioxidantien, die das Herz schützen und Entzündungen hemmen können.</p>
+        <div class="blog-card-meta">Lisa Berger-Huber · 9. Jan. 2025</div>
+      </div>
+    </div>
+    <div class="blog-card">
+      <div class="blog-card-img"><img src="https://images.unsplash.com/photo-1505330622279-bf7d7fc918f4?w=600&auto=format&fit=crop&q=80" alt="Familie"></div>
+      <div class="blog-card-body">
+        <div class="blog-cat">Familie</div>
+        <h3>Ein Jahr SweetFree: Was wir gelernt haben</h3>
+        <p>Markus blickt zurück auf das erste Jahr mit Online-Shop — mit ehrlichen Einblicken, Fehlern und dem, was uns wirklich antreibt.</p>
+        <div class="blog-card-meta">Markus Berger · 2. Jan. 2025</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NEWSLETTER -->
+<section class="newsletter">
+  <div class="s-eyebrow" style="justify-content:center"><span class="s-line" style="background:rgba(201,168,76,.4)"></span><span>Newsletter</span><span class="s-line" style="background:rgba(201,168,76,.4)"></span></div>
+  <h2>Neues direkt in dein <em>Postfach.</em></h2>
+  <p>Neue Artikel, Rezepte und Tipps für Diabetiker — keine Werbung, nur wirklich nützliche Inhalte.</p>
+  <div class="nl-form">
+    <input type="email" placeholder="deine@email.at" id="nlEmail">
+    <button onclick="nlSub()">Anmelden</button>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div class="f-brand"><a href="index.html" class="logo" style="font-family:'Cormorant Garamond',serif;font-size:1.45rem;font-weight:700;color:var(--cream);text-decoration:none;display:flex;align-items:center;gap:10px;"><span class="logo-dot"></span>SweetFree</a><p>Premium Diabetiker-Schokolade — handgefertigt in Salzburg. Ein Familienunternehmen.</p></div>
+    <div class="f-col"><h4>Shop</h4><ul><li><a href="index.html">SweetFree Natur</a></li><li><a href="index.html">SweetFree Nuss</a></li><li><a href="index.html">SweetFree Beeren</a></li></ul></div>
+    <div class="f-col"><h4>Info</h4><ul><li><a href="ueber-uns.html">Über uns</a></li><li><a href="blog.html">Blog</a></li><li><a href="kontakt.html">Kontakt</a></li></ul></div>
+    <div class="f-col"><h4>Service</h4><ul><li><a href="#">Versand & Rückgabe</a></li><li><a href="#">FAQ</a></li><li><a href="#">Datenschutz</a></li></ul></div>
+  </div>
+  <div class="footer-bottom"><span>© 2025 SweetFree GmbH · Salzburg, Österreich</span><span><a href="#">AGB</a> · <a href="#">Datenschutz</a> · <a href="#">Impressum</a></span></div>
+</footer>
+<div class="toast" id="toast"></div>
+
+<script>
+const cur=document.getElementById('cursor'),ring=document.getElementById('cursor-ring');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.transform=`translate(${mx-6}px,${my-6}px)`;});
+(function a(){rx+=(mx-rx-18)*.12;ry+=(my-ry-18)*.12;ring.style.transform=`translate(${rx}px,${ry}px)`;requestAnimationFrame(a);})();
+function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove('show'),2800);}
+function nlSub(){const v=document.getElementById('nlEmail').value;if(v&&v.includes('@')){showToast('✓ Erfolgreich angemeldet!');document.getElementById('nlEmail').value='';}else showToast('⚠️ Bitte gültige E-Mail eingeben.');}
+</script>
+</body>
+</html>

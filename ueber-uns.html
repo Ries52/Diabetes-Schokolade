@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SweetFree – Über uns</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#1A1208;--gold:#C9A84C;--gold-lt:#F0DFA0;--cream:#FAF5EB;--warm:#F2E8D0;--choco:#3B1F0E;--mid:#6B4C35;--gray:#9A8A7A;--shadow-s:0 2px 12px rgba(26,18,8,.08);--shadow-m:0 8px 32px rgba(26,18,8,.14);--shadow-l:0 24px 64px rgba(26,18,8,.22);}
+*{margin:0;padding:0;box-sizing:border-box;}html{scroll-behavior:smooth;}
+body{font-family:'Jost',sans-serif;background:var(--cream);color:var(--ink);overflow-x:hidden;cursor:none;}
+#cursor{width:12px;height:12px;background:var(--gold);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9999;mix-blend-mode:multiply;}
+#cursor-ring{width:36px;height:36px;border:1.5px solid var(--gold);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9998;transition:width .25s,height .25s;opacity:.6;}
+header{position:fixed;top:0;left:0;right:0;z-index:200;padding:0 6%;height:80px;display:flex;align-items:center;justify-content:space-between;background:rgba(250,245,235,.96);backdrop-filter:blur(18px);border-bottom:1px solid rgba(201,168,76,.18);}
+.logo{font-family:'Cormorant Garamond',serif;font-size:1.7rem;font-weight:700;color:var(--ink);text-decoration:none;display:flex;align-items:center;gap:10px;}
+.logo-dot{width:8px;height:8px;background:var(--gold);border-radius:50%;display:inline-block;}
+nav{display:flex;gap:2.5rem;align-items:center;}
+nav a{color:var(--mid);text-decoration:none;font-size:.78rem;font-weight:500;letter-spacing:.8px;text-transform:uppercase;transition:color .2s;position:relative;}
+nav a::after{content:'';position:absolute;bottom:-4px;left:0;right:0;height:1px;background:var(--gold);transform:scaleX(0);transition:transform .2s;}
+nav a:hover{color:var(--ink);}nav a:hover::after{transform:scaleX(1);}
+nav a.active{color:var(--ink);}nav a.active::after{transform:scaleX(1);}
+.nav-shop{background:var(--gold);color:var(--ink) !important;padding:9px 20px;border-radius:2px;font-weight:600 !important;}
+.nav-shop::after{display:none !important;}
+.nav-shop:hover{background:var(--gold-lt);}
+.btn-gold{background:var(--gold);color:var(--ink);border:none;padding:14px 34px;font-family:'Jost',sans-serif;font-size:.78rem;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;cursor:none;border-radius:2px;transition:background .2s,transform .15s;text-decoration:none;display:inline-block;}
+.btn-gold:hover{background:var(--gold-lt);transform:translateY(-2px);}
+.s-eyebrow{display:flex;align-items:center;gap:12px;margin-bottom:1rem;}
+.s-eyebrow span{font-size:.68rem;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--gold);}
+.s-line{height:1px;width:36px;background:var(--gold);flex-shrink:0;}
+
+/* PAGE HERO */
+.page-hero{padding:160px 8% 90px;background:var(--choco);color:var(--cream);text-align:center;position:relative;overflow:hidden;}
+.page-hero::before{content:'';position:absolute;width:700px;height:700px;background:radial-gradient(circle,rgba(201,168,76,.12) 0%,transparent 65%);top:-200px;left:50%;transform:translateX(-50%);border-radius:50%;pointer-events:none;}
+.page-hero .s-eyebrow{justify-content:center;}
+.page-hero .s-eyebrow span{color:var(--gold);}
+.page-hero .s-line{background:rgba(201,168,76,.5);}
+.page-hero h1{font-family:'Cormorant Garamond',serif;font-size:clamp(3rem,6vw,5rem);font-weight:600;line-height:1.05;margin-bottom:1.2rem;}
+.page-hero h1 em{font-style:italic;color:var(--gold);}
+.page-hero p{font-size:1rem;line-height:1.78;color:rgba(250,245,235,.68);max-width:580px;margin:0 auto;font-weight:300;}
+.hero-family-row{display:flex;justify-content:center;gap:.8rem;font-size:2.4rem;margin-top:2.5rem;}
+.hero-family-row span{animation:bob 2.5s ease-in-out infinite;}
+.hero-family-row span:nth-child(2){animation-delay:.18s;}
+.hero-family-row span:nth-child(3){animation-delay:.36s;}
+.hero-family-row span:nth-child(4){animation-delay:.54s;}
+.hero-family-row span:nth-child(5){animation-delay:.72s;}
+@keyframes bob{0%,100%{transform:translateY(0);}50%{transform:translateY(-9px);}}
+
+/* STORY */
+.story{padding:100px 8%;display:grid;grid-template-columns:1fr 1fr;gap:6rem;align-items:center;max-width:1280px;margin:0 auto;}
+.story-card{background:var(--choco);color:var(--cream);border-radius:6px;padding:52px 46px;position:relative;overflow:hidden;}
+.story-card::after{content:'🍬';position:absolute;font-size:9rem;opacity:.05;bottom:-20px;right:-10px;}
+.story-year{font-family:'Cormorant Garamond',serif;font-size:5rem;font-weight:700;color:var(--gold);line-height:1;margin-bottom:8px;}
+.story-card h3{font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:600;margin-bottom:12px;color:var(--cream);}
+.story-card p{font-size:.88rem;color:rgba(250,245,235,.65);line-height:1.68;font-weight:300;}
+.story-text h2{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,3.5vw,2.8rem);font-weight:600;line-height:1.12;margin-bottom:1.4rem;margin-top:.5rem;}
+.story-text h2 em{font-style:italic;color:var(--gold);}
+.story-text p{color:var(--gray);font-size:.93rem;line-height:1.82;margin-bottom:1.1rem;font-weight:300;}
+.story-text p strong{color:var(--ink);font-weight:500;}
+
+/* VALUES */
+.values{background:var(--choco);padding:90px 8%;color:var(--cream);}
+.values-head{text-align:center;margin-bottom:3.5rem;}
+.values-head .s-eyebrow{justify-content:center;}
+.values-head .s-line{background:rgba(201,168,76,.5);}
+.values-head h2{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,3.5vw,2.9rem);font-weight:600;line-height:1.15;margin-top:.5rem;}
+.values-head h2 em{font-style:italic;color:var(--gold);}
+.values-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;}
+.val-card{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:4px;padding:34px 28px;transition:background .25s,transform .25s;}
+.val-card:hover{background:rgba(255,255,255,.1);transform:translateY(-5px);}
+.val-icon{font-size:2.2rem;margin-bottom:16px;display:block;}
+.val-card h3{font-family:'Cormorant Garamond',serif;font-size:1.12rem;font-weight:600;color:var(--gold);margin-bottom:9px;}
+.val-card p{font-size:.83rem;color:rgba(250,245,235,.56);line-height:1.68;font-weight:300;}
+
+/* TEAM */
+.team{padding:100px 8%;}
+.team-head{text-align:center;margin-bottom:3.5rem;}
+.team-head h2{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,3.5vw,2.9rem);font-weight:600;line-height:1.15;margin-top:.5rem;}
+.team-head h2 em{font-style:italic;color:var(--gold);}
+.team-head p{margin-top:.9rem;color:var(--gray);font-size:.92rem;max-width:480px;margin-left:auto;margin-right:auto;line-height:1.7;font-weight:300;}
+.team-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem;}
+.team-card{background:var(--warm);border:1px solid rgba(201,168,76,.12);border-radius:4px;padding:34px 24px;text-align:center;transition:transform .25s,box-shadow .25s;}
+.team-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-l);}
+.team-avatar{width:88px;height:88px;border-radius:50%;background:linear-gradient(135deg,#FFF0E0,#FFD9C0);display:flex;align-items:center;justify-content:center;font-size:2.8rem;margin:0 auto 18px;border:2px solid rgba(201,168,76,.25);}
+.team-card h3{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:600;margin-bottom:4px;}
+.team-role{font-size:.68rem;font-weight:600;letter-spacing:.5px;color:var(--gold);text-transform:uppercase;margin-bottom:11px;}
+.team-card p{font-size:.83rem;color:var(--gray);line-height:1.6;font-weight:300;}
+.team-relation{display:inline-block;margin-top:12px;background:rgba(201,168,76,.12);color:var(--mid);font-size:.7rem;font-weight:600;padding:4px 11px;border-radius:1px;}
+
+/* TIMELINE */
+.timeline-section{padding:90px 8%;background:var(--warm);}
+.timeline-head{text-align:center;margin-bottom:4rem;}
+.timeline-head h2{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,3.5vw,2.9rem);font-weight:600;margin-top:.5rem;}
+.timeline-head h2 em{font-style:italic;color:var(--gold);}
+.timeline{max-width:780px;margin:0 auto;position:relative;}
+.timeline::before{content:'';position:absolute;left:50%;top:0;bottom:0;width:1px;background:linear-gradient(180deg,var(--gold),rgba(201,168,76,.2));transform:translateX(-50%);}
+.tl-item{display:grid;grid-template-columns:1fr 56px 1fr;gap:0;margin-bottom:2.8rem;align-items:center;}
+.tl-content{background:var(--cream);border-radius:4px;padding:22px 26px;box-shadow:var(--shadow-s);border:1px solid rgba(201,168,76,.1);}
+.tl-content h3{font-family:'Cormorant Garamond',serif;font-size:1rem;font-weight:600;margin-bottom:5px;}
+.tl-content p{font-size:.82rem;color:var(--gray);line-height:1.56;font-weight:300;}
+.tl-empty{opacity:0;pointer-events:none;}
+.tl-dot{display:flex;align-items:center;justify-content:center;flex-direction:column;gap:4px;z-index:1;}
+.dot-circle{width:42px;height:42px;background:var(--choco);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1rem;border:3px solid var(--cream);box-shadow:0 0 0 2px var(--gold);}
+.dot-year{font-size:.68rem;font-weight:700;color:var(--gold);letter-spacing:.5px;}
+
+/* QUOTE */
+.quote-section{background:var(--gold);padding:80px 8%;text-align:center;position:relative;overflow:hidden;}
+.quote-section::before{content:'❝';font-family:'Cormorant Garamond',serif;font-size:20rem;position:absolute;top:-60px;left:4%;opacity:.08;line-height:1;color:var(--ink);}
+.quote-section blockquote{font-family:'Cormorant Garamond',serif;font-size:clamp(1.5rem,3vw,2.1rem);font-weight:600;font-style:italic;line-height:1.48;max-width:780px;margin:0 auto 1.2rem;color:var(--ink);position:relative;z-index:1;}
+.quote-section cite{font-size:.82rem;font-style:normal;color:rgba(26,18,8,.6);font-weight:500;position:relative;z-index:1;}
+
+/* FOOTER */
+footer{background:var(--ink);color:var(--cream);padding:70px 8% 36px;}
+.footer-top{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:3rem;margin-bottom:3rem;}
+.f-brand p{margin-top:12px;font-size:.8rem;color:rgba(250,245,235,.45);line-height:1.72;font-weight:300;}
+.f-col h4{font-size:.65rem;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:rgba(250,245,235,.3);margin-bottom:1.2rem;}
+.f-col ul{list-style:none;display:flex;flex-direction:column;gap:10px;}
+.f-col ul li a{color:rgba(250,245,235,.55);text-decoration:none;font-size:.82rem;font-weight:300;transition:color .2s;}
+.f-col ul li a:hover{color:var(--gold);}
+.footer-bottom{border-top:1px solid rgba(250,245,235,.07);padding-top:24px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem;font-size:.72rem;color:rgba(250,245,235,.28);}
+.footer-bottom a{color:rgba(250,245,235,.38);text-decoration:none;}
+
+@media(max-width:1024px){.story{grid-template-columns:1fr;gap:3rem;}.team-grid{grid-template-columns:1fr 1fr;}.values-grid{grid-template-columns:1fr 1fr;}.footer-top{grid-template-columns:1fr 1fr;gap:2rem;}}
+@media(max-width:700px){nav a:not(.nav-shop){display:none;}.team-grid{grid-template-columns:1fr 1fr;}.values-grid{grid-template-columns:1fr;}.timeline::before{left:20px;}.tl-item{grid-template-columns:0 40px 1fr;}.tl-empty{display:none;}.footer-top{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<div id="cursor"></div><div id="cursor-ring"></div>
+
+<header>
+  <a href="index.html" class="logo"><span class="logo-dot"></span>SweetFree</a>
+  <nav>
+    <a href="index.html">Shop</a>
+    <a href="ueber-uns.html" class="active">Über uns</a>
+    <a href="blog.html">Blog</a>
+    <a href="kontakt.html">Kontakt</a>
+    <a href="index.html" class="nav-shop">🛒 Shop</a>
+  </nav>
+</header>
+
+<!-- PAGE HERO -->
+<section class="page-hero">
+  <div class="s-eyebrow"><span class="s-line"></span><span>Familienunternehmen seit 2018</span><span class="s-line"></span></div>
+  <h1>Süßes mit <em>Herz —</em><br>aus unserer Familie für deine.</h1>
+  <p>SweetFree entstand aus einer persönlichen Geschichte. Was als Familienrezept begann, ist heute Österreichs beliebtester Online-Shop für zuckerfreie Premium-Schokolade.</p>
+  <div class="hero-family-row"><span>👴</span><span>👵</span><span>👨</span><span>👩</span><span>👧</span></div>
+</section>
+
+<!-- STORY -->
+<section class="story">
+  <div class="story-card">
+    <div class="story-year">2017</div>
+    <h3>Der Anfang von allem</h3>
+    <p>Als Papa Hans die Diagnose Diabetes Typ 2 erhielt, wollte die Familie nicht akzeptieren, dass er auf seine geliebten Süßigkeiten verzichten muss. Also fingen wir an zu experimentieren — mit Erythrit, Stevia und viel Liebe.</p>
+  </div>
+  <div class="story-text">
+    <div class="s-eyebrow"><span class="s-line"></span><span>Unsere Geschichte</span></div>
+    <h2>Eine Diagnose, die <em>alles</em> veränderte</h2>
+    <p>Als unser Vater Hans 2017 die Diagnose Diabetes Typ 2 erhielt, war das für die ganze Familie ein Schock. Besonders hart traf ihn, dass er nun auf seine geliebten Süßigkeiten verzichten sollte — Schokolade war sein kleines Ritual seit Kindheitstagen.</p>
+    <p><strong>Mutter Renate</strong> begann in der Küche zu experimentieren. Mit natürlichen Süßungsmitteln, die den Blutzucker nicht belasten. Tochter <strong>Lisa</strong> brachte ihr Wissen aus der Ernährungswissenschaft ein, Sohn <strong>Markus</strong> seine Leidenschaft fürs Handwerk.</p>
+    <p>Was zunächst nur für die Familie gedacht war, sprach sich herum. 2018 gründeten wir offiziell SweetFree — immer noch ein Familienbetrieb, nur mit einer Mission, die größer ist als wir.</p>
+    <a href="index.html" class="btn-gold" style="margin-top:1.8rem">Zu unseren Produkten →</a>
+  </div>
+</section>
+
+<!-- VALUES -->
+<section class="values">
+  <div class="values-head">
+    <div class="s-eyebrow"><span class="s-line"></span><span>Was uns antreibt</span><span class="s-line"></span></div>
+    <h2>Unsere Werte als <em>Familie</em></h2>
+  </div>
+  <div class="values-grid">
+    <div class="val-card"><span class="val-icon">❤️</span><h3>Mit Herz gemacht</h3><p>Jedes Produkt entsteht mit der gleichen Sorgfalt wie damals in Mamas Küche. Wir testen alles selbst — auch Papa Hans urteilt bei jeder neuen Kreation mit.</p></div>
+    <div class="val-card"><span class="val-icon">🔬</span><h3>Persönlich geprüft</h3><p>Wir arbeiten eng mit Diabetologen und Ernährungsmedizinern zusammen. Jede Rezeptur wird auf Verträglichkeit und glykämischen Index geprüft.</p></div>
+    <div class="val-card"><span class="val-icon">🌿</span><h3>Nur natürliche Zutaten</h3><p>Keine Kunstsüßstoffe, keine Zusatzstoffe. Wir verwenden ausschließlich Stevia, Erythrit und Inulin — alles aus natürlichen Quellen.</p></div>
+    <div class="val-card"><span class="val-icon">🤝</span><h3>Ehrlichkeit</h3><p>Vollständige Nährwertangaben, klare Inhaltsstoffe, keine versteckten Zuckerarten. Was draufsteht, ist auch drin — versprochen.</p></div>
+    <div class="val-card"><span class="val-icon">🏔️</span><h3>Regional & nachhaltig</h3><p>Hergestellt in Salzburg, mit Kakao aus fairem Handel in Ecuador. Kurze Wege, maximale Qualität, minimaler Fußabdruck.</p></div>
+    <div class="val-card"><span class="val-icon">🫂</span><h3>Gemeinschaft</h3><p>Wir verstehen, was es bedeutet, mit Diabetes zu leben. Unser Kundenservice ist persönlich — oft sprecht ihr direkt mit einem Familienmitglied.</p></div>
+  </div>
+</section>
+
+<!-- TEAM -->
+<section class="team">
+  <div class="team-head">
+    <div class="s-eyebrow" style="justify-content:center"><span class="s-line"></span><span>Das Herzstück</span><span class="s-line"></span></div>
+    <h2>Die Familie hinter <em>SweetFree</em></h2>
+    <p>Vier Menschen, eine Mission: zuckerfreies Naschen für alle zugänglich und lecker zu machen.</p>
+  </div>
+  <div class="team-grid">
+    <div class="team-card"><div class="team-avatar">👴</div><h3>Hans Berger</h3><div class="team-role">Gründer & Inspiration</div><p>Der Grund für alles. Hans lebt seit 2017 mit Diabetes Typ 2 und ist unser strengster Qualitätsprüfer.</p><span class="team-relation">Vater & Opa</span></div>
+    <div class="team-card"><div class="team-avatar">👵</div><h3>Renate Berger</h3><div class="team-role">Rezeptentwicklung</div><p>Renates Gespür für Geschmack und ihre jahrzehntelange Backerfahrung sind die Seele unserer Produkte.</p><span class="team-relation">Mutter & Oma</span></div>
+    <div class="team-card"><div class="team-avatar">👩</div><h3>Lisa Berger-Huber</h3><div class="team-role">Ernährungswissenschaft</div><p>Lisa sorgt dafür, dass unsere Produkte nicht nur lecker, sondern auch medizinisch unbedenklich sind.</p><span class="team-relation">Tochter</span></div>
+    <div class="team-card"><div class="team-avatar">👨</div><h3>Markus Berger</h3><div class="team-role">Produktion & Shop</div><p>Markus kümmert sich um Produktion, Logistik und unseren Shop — und backt nebenbei die besten Riegel.</p><span class="team-relation">Sohn</span></div>
+  </div>
+</section>
+
+<!-- TIMELINE -->
+<section class="timeline-section">
+  <div class="timeline-head">
+    <div class="s-eyebrow" style="justify-content:center"><span class="s-line"></span><span>Meilensteine</span><span class="s-line"></span></div>
+    <h2>Von der Küche zum <em>Shop</em></h2>
+  </div>
+  <div class="timeline">
+    <div class="tl-item"><div class="tl-content"><h3>Die Diagnose</h3><p>Papa Hans erhält die Diagnose Diabetes Typ 2. Die Familie beginnt, zuckerfreie Rezepte zu entwickeln.</p></div><div class="tl-dot"><div class="dot-circle">🩺</div><div class="dot-year">2017</div></div><div class="tl-empty tl-content"></div></div>
+    <div class="tl-item"><div class="tl-empty tl-content"></div><div class="tl-dot"><div class="dot-circle">🍫</div><div class="dot-year">2018</div></div><div class="tl-content"><h3>SweetFree wird gegründet</h3><p>Offizieller Start. Die ersten Produkte werden auf Märkten in Salzburg verkauft und begeistern sofort.</p></div></div>
+    <div class="tl-item"><div class="tl-content"><h3>Erste Kooperationen</h3><p>Zusammenarbeit mit Diabetologen und Ernährungsmedizinern. Alle Rezepturen werden klinisch geprüft.</p></div><div class="tl-dot"><div class="dot-circle">🔬</div><div class="dot-year">2020</div></div><div class="tl-empty tl-content"></div></div>
+    <div class="tl-item"><div class="tl-empty tl-content"></div><div class="tl-dot"><div class="dot-circle">💻</div><div class="dot-year">2021</div></div><div class="tl-content"><h3>Online-Shop geht live</h3><p>Innerhalb von 3 Monaten kommen Bestellungen aus ganz Österreich — und bald aus Deutschland und der Schweiz.</p></div></div>
+    <div class="tl-item"><div class="tl-content"><h3>500+ zufriedene Kunden</h3><p>SweetFree wächst zur bekanntesten Premium-Diabetiker-Schokolade Österreichs. Die Familie bleibt dabei immer persönlich.</p></div><div class="tl-dot"><div class="dot-circle">🎉</div><div class="dot-year">2024</div></div><div class="tl-empty tl-content"></div></div>
+  </div>
+</section>
+
+<!-- QUOTE -->
+<section class="quote-section">
+  <blockquote>„Niemand sollte wegen einer Diagnose auf Lebensfreude verzichten müssen. Schokolade ist mehr als Essen — sie ist Erinnerung, Wärme und ein Lächeln."</blockquote>
+  <cite>— Familie Berger, Gründerfamilie SweetFree · Salzburg</cite>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div class="f-brand"><a href="index.html" class="logo" style="font-family:'Cormorant Garamond',serif;font-size:1.45rem;font-weight:700;color:var(--cream);text-decoration:none;display:flex;align-items:center;gap:10px;"><span class="logo-dot"></span>SweetFree</a><p>Premium Diabetiker-Schokolade — handgefertigt in Salzburg, aus fairem Kakao. Ein Familienunternehmen.</p></div>
+    <div class="f-col"><h4>Shop</h4><ul><li><a href="index.html">SweetFree Natur</a></li><li><a href="index.html">SweetFree Nuss</a></li><li><a href="index.html">SweetFree Beeren</a></li></ul></div>
+    <div class="f-col"><h4>Info</h4><ul><li><a href="ueber-uns.html">Über uns</a></li><li><a href="blog.html">Blog</a></li><li><a href="kontakt.html">Kontakt</a></li></ul></div>
+    <div class="f-col"><h4>Service</h4><ul><li><a href="#">Versand & Rückgabe</a></li><li><a href="#">FAQ</a></li><li><a href="#">Datenschutz</a></li><li><a href="#">Impressum</a></li></ul></div>
+  </div>
+  <div class="footer-bottom"><span>© 2025 SweetFree GmbH · Salzburg, Österreich</span><span><a href="#">AGB</a> · <a href="#">Datenschutz</a> · <a href="#">Impressum</a></span></div>
+</footer>
+
+<script>
+const cur=document.getElementById('cursor'),ring=document.getElementById('cursor-ring');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.transform=`translate(${mx-6}px,${my-6}px)`;});
+(function a(){rx+=(mx-rx-18)*.12;ry+=(my-ry-18)*.12;ring.style.transform=`translate(${rx}px,${ry}px)`;requestAnimationFrame(a);})();
+</script>
+</body>
+</html>
